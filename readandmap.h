@@ -22,7 +22,7 @@ private:
         map<string, vector<string>> chill;
 
 public:
-    vector<vector<string>> ReadFile(string filename, vector<SongObject>& song_objects);
+    vector<vector<string>> ReadFile(string filename, vector<SongObject::Song>& song_objects);
     map<float,vector<string>>AddtoMap();
 };
 

@@ -26,13 +26,13 @@ class SongObject{
             //0 - 46,590
             string album;
             //0 - 73,609
-            string track;
+            string track_name;
             //0 - 100
             int popularity;
             //0 - 5.24 milliseconds
             float duration_ms;
             //T or F
-            bool song_explicit;
+            string song_explicit;
             //0 - 0.98
             float danceability;
             //0 - 1
@@ -56,7 +56,7 @@ class SongObject{
             //0 - 243
             float tempo;
             //0 - 5;
-            float time_signatore;
+            float time_signature;
             //0 - 114 unique values
             string track_genre;
 

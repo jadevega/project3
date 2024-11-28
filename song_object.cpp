@@ -48,7 +48,7 @@ void SongObject::displayQueue(string& mood)  {
     cout << "Songs in " << mood << " queue:" << endl;
     while (!my_queue.empty()) {
         auto song = my_queue.top();
-        cout << "Track: " << song.track
+        cout << "Track: " << song.track_name
                   << ", Artist: " << song.artist
                   << ", Mood Score: " << song.mood_score << endl;
         my_queue.pop();
@@ -67,7 +67,7 @@ void SongObject::specific_displayQueue(string& mood, const int& song_amount)  {
 
     while (my_queue.size() > song_amount) {
         auto song = my_queue.top();
-        cout << "Track: " << song.track
+        cout << "Track: " << song.track_name
                   << ", Artist: " << song.artist
                   << ", Mood Score: " << song.mood_score << endl;
         my_queue.pop();

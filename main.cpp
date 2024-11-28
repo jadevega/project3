@@ -6,7 +6,7 @@
 int main() {
     readandmap hi;
     //stores all song objects
-    vector<SongObject> song_containter;
+    vector<SongObject::Song> song_containter;
 
     vector<vector<string>>data = hi.ReadFile("dataset.csv", song_containter);
 //    for(int i = 0; i< data.size(); i++){
