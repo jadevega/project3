@@ -5,4 +5,6 @@ set(CMAKE_CXX_STANDARD 20)
 
 add_executable(untitled1 main.cpp
         readandmap.cpp
-        readandmap.h)
+        readandmap.h
+        song_object.cpp
+        song_object.h)

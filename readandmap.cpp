@@ -1,13 +1,15 @@
 #include <map>
-using namespace std;
-#include<iomanip>
 #include <string>
 #include<vector>
 #include <iostream>
-#include "readandmap.h"
-# include <fstream>
+#include <fstream>
 #include <sstream>
-vector<vector<string>>readandmap::ReadFile(string filename){
+#include "readandmap.h"
+#include "song_object.h"
+
+using namespace std;
+
+vector<vector<string>>readandmap::ReadFile(string filename, vector<SongObject>& song_objects ){
     vector<vector<string>>data;
     ifstream file(filename);
     if(file.is_open()){
