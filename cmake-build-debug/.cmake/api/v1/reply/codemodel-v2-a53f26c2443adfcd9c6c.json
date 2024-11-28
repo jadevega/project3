@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "untitled1::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-untitled1-Debug-c13eae4fd9eeaa14e001.json",
+					"jsonFile" : "target-untitled1-Debug-c30d653c585a804106fa.json",
 					"name" : "untitled1",
 					"projectIndex" : 0
 				}
@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/Users/jadevega/Documents/Projects/sets/untitled1/cmake-build-debug",
-		"source" : "/Users/jadevega/Documents/Projects/sets/untitled1"
+		"build" : "/Users/isabelle_carminati/Documents/GitHub/project3/cmake-build-debug",
+		"source" : "/Users/isabelle_carminati/Documents/GitHub/project3"
 	},
 	"version" : 
 	{

@@ -1,4 +1,4 @@
-"/Applications/CLion 2.app/Contents/bin/cmake/mac/x64/bin/cmake" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=/Applications/CLion 2.app/Contents/bin/ninja/mac/x64/ninja" -G Ninja -S /Users/jadevega/Documents/Projects/sets/untitled1 -B /Users/jadevega/Documents/Projects/sets/untitled1/cmake-build-debug
--- Configuring done (0.1s)
+/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "Unix Makefiles" -S /Users/isabelle_carminati/Documents/GitHub/project3 -B /Users/isabelle_carminati/Documents/GitHub/project3/cmake-build-debug
+-- Configuring done (0.0s)
 -- Generating done (0.0s)
--- Build files have been written to: /Users/jadevega/Documents/Projects/sets/untitled1/cmake-build-debug
+-- Build files have been written to: /Users/isabelle_carminati/Documents/GitHub/project3/cmake-build-debug
