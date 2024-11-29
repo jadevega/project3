@@ -54,19 +54,11 @@ vector<vector<string>>readandmap::ReadFile(string filename, vector<SongObject::S
 
                if (count == 0){
                    tracknum = current;
-                   try {
-                       my_song.song_number = stoi(tracknum);
-                   }
-                   catch (const invalid_argument&) {
-                       std::cerr << "Error: Invalid argument - unable to convert \"" << tracknum << "\" to an integer." << std::endl;
-                   }
                }
 
                else if(count == 1){
                    trackid = current;
-                   cout << "trackid: " << trackid << endl;
                    my_song.track_id = trackid;
-                   // my_song.track_id = trackid;
                }
                else if(count == 2){
                    artists = current;
