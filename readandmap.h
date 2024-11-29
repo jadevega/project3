@@ -4,6 +4,9 @@ using namespace std;
 #include <string>
 #include<vector>
 #include <iostream>
+#include "song_object.h"
+
+using namespace std;
 
 #ifndef UNTITLED1_READANDMAP_H
 #define UNTITLED1_READANDMAP_H
@@ -19,7 +22,7 @@ private:
         map<string, vector<string>> chill;
 
 public:
-    vector<vector<string>> ReadFile(string filename);
+    vector<vector<string>> ReadFile(string filename, vector<SongObject::Song>& song_objects);
     map<float,vector<string>>AddtoMap();
 };
 
