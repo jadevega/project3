@@ -3,6 +3,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/untitled1.dir/main.cpp.o.d"
   "CMakeFiles/untitled1.dir/readandmap.cpp.o"
   "CMakeFiles/untitled1.dir/readandmap.cpp.o.d"
+  "CMakeFiles/untitled1.dir/song_object.cpp.o"
+  "CMakeFiles/untitled1.dir/song_object.cpp.o.d"
   "untitled1"
   "untitled1.pdb"
 )

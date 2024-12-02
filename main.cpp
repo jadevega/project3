@@ -2,21 +2,17 @@
 #include "readandmap.h"
 #include "song_object.h"
 
+
 using namespace std;
 int main() {
     readandmap hi;
-    SongObject modify_songs;
+//    SongObject modify_songs;
     //stores all song objects
-    vector<SongObject::Song> song_containter;
-    vector<vector<string>>data = hi.ReadFile("dataset.csv", song_containter);
-    //    for(int i = 0; i< data.size(); i++){
-    //        for (int j = 0; j< data[i].size(); j++){
-    //            cout<<data[i][j]<< " ";
-    //        }
-    //        cout<<endl;
-    //    }
+//    vector<SongObject::Song> song_containter;
+    hi.ReadFile("dataset.csv");
 
-    modify_songs.mood_logic(song_containter);
+
+//    modify_songs.mood_logic(song_containter);
     bool moodytune = true;
 
     cout << "Welcome to MoodyTune! Tell me your mood and I can output a curated playlist depending on that very mood :)" << endl;
@@ -65,12 +61,21 @@ int main() {
 
                 if (data_type == "s") {
                     if (decision == 0) {
-                        modify_songs.displayPlayList(mood);
+//                        modify_songs.displayPlayList(mood);
                     } else {
-                        modify_songs.specific_displayPlayList(mood, decision);
+//                        modify_songs.specific_displayPlayList(mood, decision);
                     }
                 } else if (data_type == "m") {
                     cout << "Maps code for jade..." << endl;
+                    unordered_map<string, vector<string>> slay = hi.AddtoMapHappy();
+                    //rn this is printing out the entire happy map!
+                    for(auto it = slay.begin(); it!=slay.end(); it++){
+                        string hi = it->first;
+                        cout<<hi<<endl;
+                        for(string song : it->second){
+                            cout<<song<<endl;
+                        }
+                    }
                 }
             } else {
                 throw invalid_argument("Invalid mood input. Please enter a valid mood.");

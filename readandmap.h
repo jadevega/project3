@@ -15,15 +15,16 @@ using namespace std;
 class readandmap {
 
 private:
-    vector<vector<string>> data;
-        map<string,vector<string>>upbeatenergy;
-        map<string,vector<string>>sadsongs;
-        map<string, vector<string>>happysongs;
-        map<string, vector<string>> chill;
+    unordered_map<string, vector<string>> data;
+    vector<vector<string>>data1;
+
 
 public:
-    vector<vector<string>> ReadFile(string filename, vector<SongObject::Song>& song_objects);
-    map<float,vector<string>>AddtoMap();
+    vector<vector<string>> ReadFile(string filename);
+    unordered_map<string,vector<string>>AddtoMapHappy();
+    unordered_map<string, vector<string>>AddtoMapSad();
+    unordered_map<string, vector<string>>AddtoMapRelaxed();
+    unordered_map<string, vector<string>>AddtoMapEnergetic();
 };
 
 

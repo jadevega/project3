@@ -8,8 +8,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/Users/isabelle_carminati/Documents/GitHub/project3/main.cpp" "CMakeFiles/untitled1.dir/main.cpp.o" "gcc" "CMakeFiles/untitled1.dir/main.cpp.o.d"
-  "/Users/isabelle_carminati/Documents/GitHub/project3/readandmap.cpp" "CMakeFiles/untitled1.dir/readandmap.cpp.o" "gcc" "CMakeFiles/untitled1.dir/readandmap.cpp.o.d"
+  "/Users/jadevega/Documents/Projects/references/project3/main.cpp" "CMakeFiles/untitled1.dir/main.cpp.o" "gcc" "CMakeFiles/untitled1.dir/main.cpp.o.d"
+  "/Users/jadevega/Documents/Projects/references/project3/readandmap.cpp" "CMakeFiles/untitled1.dir/readandmap.cpp.o" "gcc" "CMakeFiles/untitled1.dir/readandmap.cpp.o.d"
+  "/Users/jadevega/Documents/Projects/references/project3/song_object.cpp" "CMakeFiles/untitled1.dir/song_object.cpp.o" "gcc" "CMakeFiles/untitled1.dir/song_object.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

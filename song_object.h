@@ -91,7 +91,6 @@ private:
     //instrumentals
     set<Song> energetic;
     set<Song> mysterious;
-
     //Comparable data container 2: Maps --------------------------------------------------------------------------------
 
 };
