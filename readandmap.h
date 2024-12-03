@@ -18,9 +18,13 @@ private:
     unordered_map<string, vector<string>> data;
     vector<vector<string>>data1;
 
-
 public:
-    vector<vector<string>> ReadFile(string filename);
+    //map
+    vector<vector<string>> ReadFileMap(const string& filename);
+    string readCSVField(stringstream &ss);
+
+    //set
+    void ReadFileSet(const string& filename, vector<SongObject::Song>& songs);
     unordered_map<string,vector<string>>AddtoMapHappy();
     unordered_map<string, vector<string>>AddtoMapSad();
     unordered_map<string, vector<string>>AddtoMapRelaxed();

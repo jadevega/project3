@@ -6,13 +6,13 @@
 using namespace std;
 int main() {
     readandmap hi;
-//    SongObject modify_songs;
+    SongObject modify_songs;
     //stores all song objects
-//    vector<SongObject::Song> song_containter;
-    hi.ReadFile("dataset.csv");
+    vector<SongObject::Song> song_container;
+    hi.ReadFileMap("dataset.csv");
+    hi.ReadFileSet("dataset.csv", song_container);
 
-
-//    modify_songs.mood_logic(song_containter);
+    modify_songs.mood_logic(song_container);
     bool moodytune = true;
 
     cout << "Welcome to MoodyTune! Tell me your mood and I can output a curated playlist depending on that very mood :)" << endl;
@@ -61,9 +61,9 @@ int main() {
 
                 if (data_type == "s") {
                     if (decision == 0) {
-//                        modify_songs.displayPlayList(mood);
+                        modify_songs.displayPlayList(mood);
                     } else {
-//                        modify_songs.specific_displayPlayList(mood, decision);
+                        modify_songs.specific_displayPlayList(mood, decision);
                     }
                 } else if (data_type == "m") {
                     cout << "Maps code for jade..." << endl;

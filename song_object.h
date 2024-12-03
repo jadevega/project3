@@ -61,6 +61,7 @@ class SongObject{
     //Functions
     void displayPlayList(string& mood);
     void specific_displayPlayList(string &mood, const int &song_amount);
+    string trim(string& str);
 
     //Determines mood
     void mood_logic(vector<Song>& song_objects);
@@ -88,10 +89,8 @@ private:
     set<Song> happy;
     set<Song> sad;
     set<Song> relaxed;
-    //instrumentals
     set<Song> energetic;
     set<Song> mysterious;
-    //Comparable data container 2: Maps --------------------------------------------------------------------------------
 
 };
 

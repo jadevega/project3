@@ -9,7 +9,110 @@
 
 using namespace std;
 
-vector<vector<string>>readandmap::ReadFile(string filename){
+// Helper function to parse a single CSV field, handling quotes and commas
+string readandmap::readCSVField(stringstream &ss) {
+    string field;
+    if (!getline(ss, field, ',')) {
+        return field; // Return empty if no more fields.
+    }
+
+    // If the field starts with a quote, we need to handle quoted fields
+    if (!field.empty() && field.front() == '"') {
+        // Remove the initial quote
+        string accumulated = field.substr(1);
+        int quoteCount = (int)count(accumulated.begin(), accumulated.end(), '"');
+
+        // If quotes aren't balanced, continue reading until they are
+        while (quoteCount % 2 != 1) {
+            string nextPart;
+            if (!getline(ss, nextPart, ',')) {
+                break; // No more data
+            }
+            accumulated += "," + nextPart;
+            quoteCount = (int)count(accumulated.begin(), accumulated.end(), '"');
+        }
+
+        // Remove trailing quote if present
+        if (!accumulated.empty() && accumulated.back() == '"') {
+            accumulated.pop_back();
+        }
+
+        // Replace any "" with "
+        size_t pos = 0;
+        while ((pos = accumulated.find("\"\"", pos)) != string::npos) {
+            accumulated.replace(pos, 2, "\"");
+            pos += 1;
+        }
+
+        field = accumulated;
+    }
+
+    return field;
+}
+
+void readandmap::ReadFileSet(const string& filename, vector<SongObject::Song>& songs) {
+    ifstream file(filename);
+    if (file.is_open()) {
+        cout << "File opened for set implementation." << endl;
+        string line;
+        int linecount = 0;
+
+        while (getline(file, line)) {
+            // Skipping headers
+            if (linecount < 2) {
+                linecount++;
+                continue;
+            }
+
+            stringstream ss(line);
+            vector<string> fields;
+            fields.reserve(21);
+
+            for (int i = 0; i < 21; i++) {
+                fields.push_back(readCSVField(ss));
+            }
+
+            SongObject::Song my_song;
+            bool parsing_error = false;
+            try {
+                my_song.song_number = stoi(fields[0]);
+                my_song.track_id = fields[1];
+                my_song.artist = fields[2];
+                my_song.album = fields[3];
+                my_song.track_name = fields[4];
+                my_song.popularity = stoi(fields[5]);
+                my_song.duration_ms = stof(fields[6]);
+                my_song.song_explicit = fields[7];
+                my_song.danceability = stof(fields[8]);
+                my_song.energy = stof(fields[9]);
+                my_song.key = stof(fields[10]);
+                my_song.loudness = stof(fields[11]);
+                my_song.mode = stof(fields[12]);
+                my_song.speechiness = stof(fields[13]);
+                my_song.acousticness = stof(fields[14]);
+                my_song.instrumentalness = stof(fields[15]);
+                my_song.liveness = stof(fields[16]);
+                my_song.valence = stof(fields[17]);
+                my_song.tempo = stof(fields[18]);
+                my_song.time_signature = stof(fields[19]);
+                my_song.track_genre = fields[20];
+            } catch (const invalid_argument&) {
+                parsing_error = true;
+            }
+
+            if (!parsing_error) {
+                songs.push_back(my_song);
+            }
+        }
+
+        file.close();
+    } else {
+        cout << "Error opening file for set implementation." << endl;
+    }
+}
+
+
+vector<vector<string>>readandmap::ReadFileMap(const string& filename){
     ifstream file(filename);
     if(file.is_open()){
         cout<<"you opened it bb"<<endl;
@@ -189,6 +292,7 @@ vector<vector<string>>readandmap::ReadFile(string filename){
 
     return data1;
 }
+
 unordered_map<string,vector<string>>readandmap::AddtoMapHappy() {
     for (auto row: data1) {
 

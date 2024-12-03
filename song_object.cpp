@@ -9,17 +9,27 @@
 using namespace std;
 
 // struct functions ----------------------------------------------------------------------------------------------------
-bool SongObject::Song::operator<(const Song& other) const {
-    if (popularity != other.popularity) {
-        return popularity < other.popularity; // Compare by popularity first
-    }
-    if (track_id != other.track_id) {
-        return track_name < other.track_name; // Compare by track_id if popularity is the same
-    }
-    return song_number < other.song_number; // Fallback comparison by track_name
+bool SongObject::Song::operator<(const Song &other) const {
+    // Compare by popularity first
+    if (popularity != other.popularity) return popularity < other.popularity;
+    // Then by artist
+    if (artist != other.artist) return artist < other.artist;
+    // Then by track name
+    if (track_name != other.track_name) return track_name < other.track_name;
+    // Then by album (if you want this considered)
+    if (album != other.album) return album < other.album;
+
+    // If we get here, they are essentially the same song
+    return false;
 }
+
 // Set functions -------------------------------------------------------------------------------------------------------
 
+string SongObject::trim(string& str) {
+    size_t start = str.find_first_not_of(" \t\n\r");
+    size_t end = str.find_last_not_of(" \t\n\r");
+    return (start == string::npos) ? "" : str.substr(start, end - start + 1);
+}
 
 // Display all songs in the specified mood queue
 void SongObject::displayPlayList(string& mood) {
@@ -53,7 +63,11 @@ void SongObject::displayPlayList(string& mood) {
     // Iterate through the set and display each song
 
     for (const auto& song : *moodSet) {
-        cout << "Song Name: " << song.track_name << ", Artist: " << song.artist << "Album: " << song.album << endl;
+        string name = song.track_name;
+        string artist = song.artist;
+        string album = song.album;
+
+        cout << "Song Name: " << trim(name) << ", Artist: " << trim(artist) << "Album: " << trim(album) << endl;
     }
     cout << "Total Songs: " << moodSet->size() << endl;
 }
@@ -171,10 +185,9 @@ void SongObject::mood_logic(vector<Song>& song_objects) {
         } else if (relaxed_count >= threshold && relaxed_count >= happy_count && relaxed_count >= sad_count && relaxed_count >= energetic_count) {
             song.mood = "relaxed";
             relaxed.insert(song);
-        }
-            else if (energetic_count >= threshold && energetic_count >= happy_count && energetic_count >= sad_count && energetic_count >= relaxed_count) {
-                song.mood = "energetic";
-                energetic.insert(song);
+        } else if (energetic_count >= threshold && energetic_count >= happy_count && energetic_count >= sad_count && energetic_count >= relaxed_count) {
+            song.mood = "energetic";
+            energetic.insert(song);
         } else {
             song.mood = "mysterious";
             mysterious.insert(song);
@@ -188,6 +201,12 @@ void SongObject::logic_helper(const string& variable, Song& song) {
     string high = "high";
     string minor = "minor";
     string major = "major";
+    trim(song.artist);
+    trim(song.track_name);
+    trim(song.album);
+    trim(song.track_id);
+    trim(song.song_explicit);
+    trim(song.track_genre);
 
     if (variable == "danceability") {
         if (song.danceability <= 0.33) {
