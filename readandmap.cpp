@@ -242,9 +242,9 @@ unordered_map<string, vector<string>>readandmap::AddtoMapSad(){
                     float energyflo = stof(row[3]);
                     if (energyflo <=0.33) {
                         float accoustflo = stof(row[5]);
-                        if (accoustflo <=0.33) {
+                        if (accoustflo > 0.66) {
                             float speechflo = stof(row[8]);
-                            if (speechflo > 0.33 and speechflo<= 0.66) {
+                            if (speechflo< .66) {
                                 float modeflo = stof(row[7]);
                                 if (modeflo < 0.5) {
                                     float liveflo = stof(row[6]);
@@ -282,7 +282,7 @@ unordered_map<string, vector<string>>readandmap::AddtoMapRelaxed(){
                     float energyflo = stof(row[3]);
                     if (energyflo <= 0.66){
                         float accoustflo = stof(row[5]);
-                        if (accoustflo <= 0.66) {
+                        if (accoustflo > 0.33 and accoustflo <=.66) {
                                     float liveflo = stof(row[6]);
                                     if(liveflo <=0.66) {
                                         float tempoflo = stof(row[9]);
