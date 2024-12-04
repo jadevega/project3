@@ -430,7 +430,7 @@ unordered_map<string, vector<string>>readandmap::AddtoMapEnergetic(){
                                         float modeflo = stof(row[7]);
                                         if(modeflo > .5){
                                             float accoustflo = stof(row[5]);
-                                            if(accoustflo > .66){
+                                            if(accoustflo < .66){
                                                 string important = row[0] + " " + row[1];
                                                 if (data.find("energetic") == data.end()) {
                                                     data["energetic"] = {};
