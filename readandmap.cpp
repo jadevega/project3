@@ -1,4 +1,3 @@
-#include <map>
 #include <string>
 #include<vector>
 #include <iostream>
@@ -50,10 +49,10 @@ string readandmap::readCSVField(stringstream &ss) {
     return field;
 }
 
-void readandmap::ReadFileSet(const string& filename, vector<SongObject::Song>& songs) {
+HashSet<SongObject::Song> readandmap::ReadFileSet(const string& filename) {
+    HashSet<SongObject::Song> data2;
     ifstream file(filename);
     if (file.is_open()) {
-        cout << "File opened for set implementation." << endl;
         string line;
         int linecount = 0;
 
@@ -101,7 +100,7 @@ void readandmap::ReadFileSet(const string& filename, vector<SongObject::Song>& s
             }
 
             if (!parsing_error) {
-                songs.push_back(my_song);
+                data2.insert(my_song);
             }
         }
 
@@ -109,13 +108,13 @@ void readandmap::ReadFileSet(const string& filename, vector<SongObject::Song>& s
     } else {
         cout << "Error opening file for set implementation." << endl;
     }
+    return data2;
 }
 
 HashTable<string, vector<string>>readandmap::ReadFileMap(const string& filename){
     HashTable<string, vector<string>>data1;
     ifstream file(filename);
     if(file.is_open()){
-        cout<<"you opened it bb"<<endl;
         string line;
 
         //Counter to skip the first two rows
@@ -280,8 +279,9 @@ HashTable<string, vector<string>>readandmap::ReadFileMap(const string& filename)
 
 //
             vector<string>specificinfo = {artists, trackname, dance, energy, valence, accousticness, liveness, mode,
-                                          speechniess, tempo, instrumentallness, loudness};
-            data1.insert(tracknum, specificinfo);
+                                          speechniess, tempo, instrumentallness, loudness}; //important info for formula and creating mood
+
+            data1.insert(tracknum, specificinfo);//inserts key track number and the value vector with all the important information.
 
         }
 
@@ -297,11 +297,13 @@ HashTable<string, vector<string>>readandmap::ReadFileMap(const string& filename)
 
 HashTable<string,vector<string>>readandmap::AddtoMapHappy(const HashTable<string, vector<string>>&data1) {
 
-    HashTable<string, vector<string>> happyMap;
+    HashTable<string, vector<string>> happyMap; //creates hash table for happy mood
+    //
     for(auto& list: data1.getData()) {
         for (auto pair: list) {
-            string tracknum = pair.first;
-            vector<string> values = pair.second;
+            string tracknum = pair.first; //gets track num
+            vector<string> values = pair.second;//gets values we need to decide mood
+            //below is accessing values and if they match our function adding it to the hashmap.
             try {
                 float valenceflo = stof(values[4]);
                 if (valenceflo > 0.66) {
@@ -315,13 +317,21 @@ HashTable<string,vector<string>>readandmap::AddtoMapHappy(const HashTable<string
                                 if (loudflo > -15.0 and loudflo < -5.0) {
                                     float modeflo = stof(values[7]);
                                     if (modeflo > 0.5) {
-                                        vector<string> important = {values[0],values[1]};
-                                        if (happyMap.checkifhas(tracknum)) {
-                                            continue;
+                                        string name = values[1];
+                                        bool exist = false;
+                                        for(auto list: happyMap.getData()) {
+                                            for (auto pair: list) {
+                                                if (!pair.second.empty() && pair.second[1] == name) { //if the hashmap alr has the name don't add it.
+                                                    exist = true;
+                                                    break;
+                                                }
+                                            }
                                         }
-                                        else {
-                                            happyMap.insert(tracknum, important);
+                                        if(!exist){
+                                            vector<string> important = {values[0],values[1]};
+                                            happyMap.insert(tracknum, important);//adds song to hashmap if the name isnt already in there.
                                         }
+
                                     }
                                 }
                             }
@@ -337,11 +347,12 @@ HashTable<string,vector<string>>readandmap::AddtoMapHappy(const HashTable<string
     return happyMap;
 }
 HashTable<string,vector<string>>readandmap::AddtoMapSad(const HashTable<string, vector<string>>&data1) {
-    HashTable<string, vector<string>> sadMap;
+    HashTable<string, vector<string>> sadMap; //creates hash table for sad mood
     for (auto &list: data1.getData()) {
         for (auto pair: list) {
-            string tracknum = pair.first;
-            vector<string> values = pair.second;
+            string tracknum = pair.first;//gets tracknum
+            vector<string> values = pair.second;// value of vectors.
+            //below is accessing values and if they match our function adding it to the hashmap.
             try {
                 float valenceflo = stof(values[4]);
                 if (valenceflo <= 0.66) {
@@ -359,10 +370,18 @@ HashTable<string,vector<string>>readandmap::AddtoMapSad(const HashTable<string, 
                                         if (liveflo <= 0.33) {
                                             float tempoflo = stof(values[9]);
                                             if (tempoflo <= 80) {
-                                                vector<string> important = {values[0], values[1]};
-                                                if (sadMap.checkifhas(tracknum)) {
-                                                    continue;
-                                                } else {
+                                                string name = values[1];
+                                                bool exist = false;
+                                                for(auto list: sadMap.getData()) {
+                                                    for (auto pair: list) {
+                                                        if (!pair.second.empty() && pair.second[1] == name) {
+                                                            exist = true;
+                                                            break;
+                                                        }
+                                                    }
+                                                }
+                                                if(!exist){
+                                                    vector<string> important = {values[0],values[1]};
                                                     sadMap.insert(tracknum, important);
                                                 }
                                             }
@@ -390,31 +409,40 @@ HashTable<string,vector<string>>readandmap::AddtoMapRelaxed(const HashTable<stri
         for (auto pair: list) {
             string tracknum = pair.first;
             vector<string> values = pair.second;
+            //below is accessing values and if they match our function adding it to the hashmap.
             try {
                 float valenceflo = stof(values[4]);
                 if (valenceflo >.33 and valenceflo<.66) {
-                        float energyflo = stof(values[3]);
-                        if (energyflo <= 0.66) {
-                            float accoust = stof(values[5]);
-                            if (accoust > .33 and accoust <=.66) {
-                                float liveflo = stof(values[6]);
-                                if (liveflo < .66) {
-                                    float insturmetnalflo = stof(values[10]);
-                                    if (insturmetnalflo >0.66) {
-                                            float tempoflo = stof(values[9]);
-                                            if (tempoflo <= 160) {
-                                                vector<string> important = {values[0], values[1]};
-                                                if (relaxedMap.checkifhas(tracknum)) {
-                                                    continue;
-                                                } else {
-                                                    relaxedMap.insert(tracknum, important);
+                    float energyflo = stof(values[3]);
+                    if (energyflo <= 0.66) {
+                        float accoust = stof(values[5]);
+                        if (accoust > .33 and accoust <=.66) {
+                            float liveflo = stof(values[6]);
+                            if (liveflo < .66) {
+                                float insturmetnalflo = stof(values[10]);
+                                if (insturmetnalflo >0.66) {
+                                    float tempoflo = stof(values[9]);
+                                    if (tempoflo <= 160) {
+                                        string name = values[1];
+                                        bool exist = false;
+                                        for(auto list: relaxedMap.getData()) {
+                                            for (auto pair: list) {
+                                                if (!pair.second.empty() && pair.second[1] == name) {//if name alr exists don't add it
+                                                    exist = true;
+                                                    break;
                                                 }
                                             }
-
+                                        }
+                                        if(!exist){
+                                            vector<string> important = {values[0],values[1]};
+                                            relaxedMap.insert(tracknum, important);//only add if the name isn't there.
+                                        }
                                     }
+
                                 }
                             }
                         }
+                    }
 
                 }
             }
@@ -432,8 +460,9 @@ HashTable<string,vector<string>>readandmap::AddtoMapEnergetic(const HashTable<st
     HashTable<string, vector<string>> energeticMap;
     for (auto &list: data1.getData()) {
         for (auto pair: list) {
-            string tracknum = pair.first;
-            vector<string> values = pair.second;
+            string tracknum = pair.first; //gets tracknum
+            vector<string> values = pair.second; //vector of values we need for functions
+            //below is accessing values and if they match our function adding it to the hashmap.
             try {
                 float energy = stof(values[3]);
                 if(energy > .66){
@@ -450,10 +479,19 @@ HashTable<string,vector<string>>readandmap::AddtoMapEnergetic(const HashTable<st
                                         float accoust = stof(values[5]);
                                         if(accoust<.66){
                                             vector<string> important = {values[0], values[1]};
-                                            if (energeticMap.checkifhas(tracknum)) {
-                                                continue;
-                                            } else {
-                                                energeticMap.insert(tracknum, important);
+                                            string name = values[1];
+                                            bool exist = false;
+                                            for(auto list: energeticMap.getData()) {
+                                                for (auto pair: list) {
+                                                    if (!pair.second.empty() && pair.second[1] == name) { //if name is alr in there, don't add it.
+                                                        exist = true;
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                            if(!exist){
+                                                vector<string> important = {values[0],values[1]};
+                                                energeticMap.insert(tracknum, important); //if name isnt in there, add it.
                                             }
                                         }
                                     }
@@ -472,47 +510,7 @@ HashTable<string,vector<string>>readandmap::AddtoMapEnergetic(const HashTable<st
     }
     return energeticMap;
 }
-//HashTable<string,vector<string>>readandmap::AddtoMapEnergetic(){
-//    HashTable<string, vector<string>>data;
-//    for(auto row: data1){
-//        try{
-//            float energyflo = stof(row[3]);
-//            if (energyflo > .66){
-//                float tempoflo = stof(row[9]);
-//                if(tempoflo> 160.0){
-//                    float danceflo = stof(row[2]);
-//                        if(danceflo > 0.66){
-//                            float liveflo = stof(row[6]);
-//                            if(liveflo > .66){
-//                                float loudflo = stof(row[11]);
-//                                    if(loudflo > -5){
-//                                        float modeflo = stof(row[7]);
-//                                        if(modeflo > .5){
-//                                            float accoustflo = stof(row[5]);
-//                                            if(accoustflo < .66){
-//                                                string important = row[0] + " " + row[1];
-//                                                vector<string>curr;
-//                                                if (data.getvec("energetic", curr)){
-//                                                    if(find(curr.begin(), curr.end(), important) == curr.end()){
-//                                                        curr.push_back(important);
-//                                                        data.insert("energetic", curr);
-//                                                    }
-//                                                }
-//                                                else{
-//                                                    data.insert("energetic", {important});
-//                                                }
-//                                            }
-//                                        }
-//                                    }
-//
-//                            }
-//                    }
-//                }
-//            }
-//        }
-//        catch (invalid_argument) {
-//            continue;
-//        }
-//    }
-//    return data;
-//}
+
+
+
+

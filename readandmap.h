@@ -12,6 +12,16 @@ using namespace std;
 #ifndef UNTITLED1_READANDMAP_H
 #define UNTITLED1_READANDMAP_H
 
+namespace std {
+    template <>
+    struct hash<SongObject::Song> {
+        size_t operator()(const SongObject::Song& song) const {
+            // Combine hash values of unique fields
+            return hash<int>()(song.song_number) ^ hash<string>()(song.track_id);
+        }
+    };
+}
+
 template<typename K, typename V>
 class HashTable {
 private:
@@ -98,7 +108,7 @@ int HashTable<K, V>::size() const {
 template<typename K, typename V>
 float HashTable<K, V>::ldf() const {
     return static_cast<float>(num) / TABLE_SIZE;
-    }
+}
 
 template<typename K, typename V>
 const vector<list<pair<K, V>>>HashTable<K,V>::getData() const{
@@ -109,8 +119,6 @@ template<typename K, typename V>
 int HashTable<K,V>::getTable() const {
     return TABLE_SIZE;
 }
-
-
 
 template<typename K, typename V>
 void HashTable<K,V>::rehashtab(){
@@ -145,7 +153,7 @@ public:
     string readCSVField(stringstream &ss);
 
     //set
-    void ReadFileSet(const string& filename, vector<SongObject::Song>& songs);
+    HashSet<SongObject::Song> ReadFileSet(const string& filename);
 
 };
 
