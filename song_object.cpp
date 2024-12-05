@@ -35,8 +35,8 @@ string SongObject::trim(string& str) {
 
 // Display all songs in the specified mood queue
 void SongObject::displayPlayList(string& mood) {
-    cout << "MoodyTune lOaDiNg ~~~~~~~" << endl;
-    cout << "Displaying playlist for mood: " << mood << endl;
+//    cout << "MoodyTune lOaDiNg ~~~~~~~" << endl;
+//    cout << "Displaying playlist for mood: " << mood << endl;
 
     // Pointer to the appropriate set
     HashSet<Song>* moodSet = nullptr;

@@ -76,12 +76,16 @@ int main() {
 
                         //add happy songs to hashset if user chose hashset
                         if(data_type == "s"){
+                            auto start = chrono::high_resolution_clock ::now();
                             if(numSongs == 0){
                                 songClassifier.displayPlayList(mood);
                             }
                             else{
                                 songClassifier.specific_displayPlayList(mood, numSongs);
                             }
+                            auto end = chrono::high_resolution_clock::now();
+                            auto duration = chrono::duration_cast<chrono::milliseconds>(end - start).count();
+                            cout << "Set implementation took: " << duration << " ms\n";
                         }
                     }
                         //runs if the user selected energetic
@@ -140,6 +144,7 @@ int main() {
                         //the num of songs the user selected is read into the variable
                         cin >> numSongs;
 
+
                         //add relaxed songs to hashmap if user chose hashmap
                         if(data_type == "m"){songs = readMapper.AddtoMapRelaxed(data1);}
                         //add relaxed songs to hashset if user chose hashset
@@ -153,6 +158,9 @@ int main() {
                             }
                         }
                     }
+                    cout << "MoodyTune lOaDiNg ~~~~~~~" << endl;
+                    cout << "Displaying playlist for mood: " << mood << endl;
+
 
                     // Validate input for decision
                     if (cin.fail() || numSongs < 0) {
@@ -161,10 +169,11 @@ int main() {
 
 
 
-                    cout << "MoodyTune lOaDiNg ~~~~~~~" << endl;
-                    cout << "Displaying playlist for mood: " << mood << endl;
+//                    cout << "MoodyTune lOaDiNg ~~~~~~~" << endl;
+//                    cout << "Displaying playlist for mood: " << mood << endl;
 
                     if(data_type == "m") {
+                        auto start = chrono::high_resolution_clock ::now();
                         //print the entire map of songs (Jades implementation)
                         if(numSongs == 0){
                             //range based for loop to print the whole map
@@ -201,10 +210,14 @@ int main() {
                                 }
                             }
                         }
+                        auto end = chrono::high_resolution_clock::now();
+                        auto duration = chrono::duration_cast<chrono::milliseconds>(end - start).count();
+                        cout << "Map implementation took: " << duration << " ms\n";
                     }
                 } else { //runs if inproper mood was entered by user
                     throw invalid_argument("Invalid mood input. Please enter a valid mood.");
                 }
+
 
                 int go_again = 0;
                 cout << "Do you want another playlist? Press 1 if yes..." << endl;
