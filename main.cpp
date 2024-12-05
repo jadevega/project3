@@ -159,16 +159,7 @@ int main() {
                         throw invalid_argument("Invalid input for decision. Please enter a non-negative integer.");
                     }
 
-//               if(decision > slay.size()){ //FIXME if user inputs size larger than set available
-//                   throw invalid_argument("Requested value exceeds number of songs available for that mood. "
-//                                           "Max input: ("+to_string(slay.size())+").");
-//                }
 
-                    //the folowing code prints the playlist for the hasmap choice
-
-                    /*NOTE: the functions set up in the hashset implementation had a backend function that
-                     * displays the playlist so if hashset is selected then the previous if else statements
-                     * take care of the printing*/
 
                     cout << "MoodyTune lOaDiNg ~~~~~~~" << endl;
                     cout << "Displaying playlist for mood: " << mood << endl;
