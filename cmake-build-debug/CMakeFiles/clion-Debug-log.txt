@@ -1,4 +1,16 @@
-"/Applications/CLion 2.app/Contents/bin/cmake/mac/x64/bin/cmake" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=/Applications/CLion 2.app/Contents/bin/ninja/mac/x64/ninja" -G Ninja -S /Users/jadevega/Documents/Projects/sets/untitled1 -B /Users/jadevega/Documents/Projects/sets/untitled1/cmake-build-debug
--- Configuring done (0.1s)
+/private/var/folders/h9/0f3fwkms4wq91dmhffcbs5sr0000gn/T/AppTranslocation/30B92FBF-0B17-4071-A8EF-CFE32F8877E0/d/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "Unix Makefiles" -S /Users/moniquealfonso/Downloads/project3 -B /Users/moniquealfonso/Downloads/project3/cmake-build-debug
+-- The C compiler identification is AppleClang 16.0.0.16000026
+-- The CXX compiler identification is AppleClang 16.0.0.16000026
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /Library/Developer/CommandLineTools/usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /Library/Developer/CommandLineTools/usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done (1.1s)
 -- Generating done (0.0s)
--- Build files have been written to: /Users/jadevega/Documents/Projects/sets/untitled1/cmake-build-debug
+-- Build files have been written to: /Users/moniquealfonso/Downloads/project3/cmake-build-debug
